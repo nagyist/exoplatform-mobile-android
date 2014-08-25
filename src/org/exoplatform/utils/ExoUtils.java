@@ -148,4 +148,26 @@ public class ExoUtils {
                                                                     );
   }
   
+  
+  public static String getAccountNameFromURL(String url, String defaultName) {
+	  String finalName;
+	  if (url == null || url.isEmpty()) finalName = defaultName;
+	  else 
+	  {
+		try {
+			URI theURL = new URI(url);
+			finalName = theURL.getHost();
+			int lastDot = finalName.lastIndexOf('.');
+			finalName = finalName.substring(0, lastDot);
+			int domainDot = finalName.lastIndexOf('.');
+			finalName = finalName.substring(domainDot+1);
+		} catch (URISyntaxException e) {
+			finalName = defaultName;
+		} catch (IndexOutOfBoundsException e) {
+			finalName = defaultName;
+		}
+	  }
+	  return finalName;
+  }
+  
 }
